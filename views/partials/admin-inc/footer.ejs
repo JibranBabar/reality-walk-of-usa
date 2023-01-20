@@ -1,0 +1,122 @@
+<footer class="footer mt-auto">
+    <div class="copyright bg-white">
+        <p class="mb-0">
+            Copyright &copy;
+            <script>
+                var CurrentYear = new Date().getFullYear();
+                document.write(CurrentYear);
+            </script>
+            <a href="https://usa.edu.pk/" class="text-muted">University Of South Asia Lahore,All Rights
+                Reserved</a>
+        </p>
+    </div>
+</footer>
+
+
+<!-- Javascript -->
+<script src="/assets/plugins/jquery/jquery.min.js"></script>
+<script src="/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- <script src="/assets/plugins/simplebar/simplebar.min.js"></script> -->
+<script src='/assets/plugins/charts/Chart.min.js'></script>
+<script src='/assets/js/chart.js'></script>
+<script src='/assets/plugins/jvectormap/jquery-jvectormap-2.0.3.min.js'></script>
+<script src='/assets/plugins/jvectormap/jquery-jvectormap-world-mill.js'></script>
+<!-- <script src='/assets/js/vector-map.js'></script> -->
+<script src='/assets/plugins/daterangepicker/moment.min.js'></script>
+<script src='/assets/plugins/daterangepicker/daterangepicker.js'></script>
+<script src='/assets/js/date-range.js'></script>
+<script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDCn8TFXGg17HAUcNpkwtxxyT9Io9B_NcM' defer></script>
+<script src='/assets/js/map.js'></script>
+<script src='/assets/plugins/toastr/toastr.min.js'></script>
+<script src="/assets/js/sleek.js"></script>
+<!-- <link href="/assets/options/optionswitch.css" rel="stylesheet"> -->
+<!-- <script src="/assets/options/optionswitcher.js"></script> -->
+<!-- sweetalert -->
+<script src="/plugins/sweetalert/sweetalert.min.js"></script>
+
+
+<script>
+    $(document).ready(function () {
+        let UpdatePassword = window.localStorage.getItem('UpdatePassword');
+        let welcomeSA = window.localStorage.getItem('welcomeSA');
+        let adminlogin = window.localStorage.getItem('adminlogin');
+        let updateuser = window.localStorage.getItem('updateuser');
+        let deleteuser = window.localStorage.getItem('deleteuser');
+        if (UpdatePassword) {
+            swal("Password is update", "Change Successfully", "success");
+            window.localStorage.removeItem('UpdatePassword');
+        } else if (welcomeSA) {
+            swal("Welcome To Dashboard", "Login Successfully", "success");
+            window.localStorage.removeItem('welcomeSA');
+        } else if (adminlogin) {
+            swal("Welcome Admisssion Dashboard", "Login Successfully", "success");
+            window.localStorage.removeItem('adminlogin');
+        } else if (updateuser) {
+            swal("User Details is up to date", "Update Successfully", "success");
+            window.localStorage.removeItem('updateuser');
+        } else if (deleteuser) {
+            swal({
+                title: "Are you sure?",
+                text: "Once deleted, you will not be able to recover this user details!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        swal("User deleted Successfully", {
+                            icon: "success",
+                        });
+                        window.localStorage.removeItem('deleteuser');
+                    } else {
+                        swal("User data is safe!");
+                        window.localStorage.removeItem('deleteuser');
+                    }
+                });
+        }
+
+        $('#logoutadmin').click(function (e) {
+            e.preventDefault();
+            $.ajax({
+                type: "GET",
+                url: "/auth/logoutuser",
+                headers: { "authorization": localStorage.getItem('token') },
+                success: function (msg) {
+                    if (msg.status === 'failed') {
+                        $('#error_response').append(msg.message)
+                    } else {
+                        window.localStorage.removeItem('token');
+                        window.localStorage.removeItem('user');
+                        window.localStorage.setItem('logooutuser', 1);
+                        window.location.href = "/"
+                    }
+                }
+            })
+        });
+    });
+</script>
+
+
+<script>
+    let userData = window.localStorage.getItem("user");
+    userData = JSON.parse(userData);
+    if (userData) {
+        $('#user_name2').append(userData.name);
+        $('#user_name3').append(userData.name);
+        $('#user_name4').append(userData.name);
+        $('#user_name5').append(userData.name);
+        $('#user_email1').append(userData.email);
+        $('#user_email2').append(userData.email);
+    }
+
+    let pathname = window.location.pathname;
+    if (userData.is_admin == 2) {
+        if (pathname.includes('/admin/admin-dashboard') || pathname.includes('/admin/admin-team') || pathname.includes('/admin/admin-map')) {
+            window.location.href = '/admin/admin-admission-list';
+        }
+    } else if (pathname.includes('/admin')) {
+        if (!userData || userData.is_admin == 0) {
+            window.location.href = '/';
+        }
+    }
+</script>

@@ -1,0 +1,115 @@
+<!-- preloader start -->
+<div class="preloader">
+  <img src="/images/preloader.gif" alt="preloader">
+</div>
+<!-- preloader end -->
+
+<!-- header -->
+<header class="fixed-top header">
+  <!-- start top header -->
+  <div class="top-header py-2 bg-white">
+    <div class="container">
+      <div class="row no-gutters align-items-center">
+        <div class="col-lg-4 text-center text-lg-left">
+          <a class="text-color mr-3" href="tel:+923334926760"><strong>CALL</strong> +92 333 4926760 </a>
+          <ul class="list-inline d-inline">
+            <li class="list-inline-item mx-0"><a class="d-inline-block p-2 text-color"
+                href="https://facebook.com/USALAHORE/"><i class="ti-facebook"></i></a></li>
+            <li class="list-inline-item mx-0"><a class="d-inline-block p-2 text-color"
+                href="https://twitter.com/USALAHORE/"><i class="ti-twitter-alt"></i></a></li>
+            <li class="list-inline-item mx-0"><a class="d-inline-block p-2 text-color"
+                href="https://github.com/jibranbabar"><i class="ti-github"></i></a></li>
+            <li class="list-inline-item mx-0"><a class="d-inline-block p-2 text-color"
+                href="https://instagram.com/USALAHORE/"><i class="ti-instagram"></i></a></li>
+          </ul>
+        </div>
+        <div class="col-lg-8 text-center text-lg-right">
+          <ul class="list-inline d-flex justify-content-end align-items-center">
+            <div class="">
+              <li class="list-inline-item"><a class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block"
+                  href="/scholarship">scholarship</a></li>
+            </div>
+            <div class="" id="loggedIn">
+              <li class="list-inline-item"><a class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block"
+                  href="#loginModal" data-toggle="modal" data-target="#loginModal">login</a></li>
+              <li class="list-inline-item"><a class="text-uppercase  text-color p-sm-2 py-2 px-0 d-inline-block"
+                  href="#signupModal" data-toggle="modal" data-target="#signupModal">register</a></li>
+            </div>
+            <div class="" id="userprofile">
+              <li class="list-inline-item"><a class="text-uppercase text-color p-sm-2 py-1 px-0 d-inline-block"
+                  href="#profileModal" data-toggle="modal" data-target="#profileModal">
+                  <img src="/images/user/noimageicon.png" alt="no image" class="rounded-circle me-n2" width="25">
+                  <span id="user_name"></span>
+                </a>
+              </li>
+            </div>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end top Header -->
+
+  <!-- navbar start-->
+  <div class="navigation w-100">
+    <div class="container">
+      <nav class="navbar navbar-expand-lg navbar-dark p-0">
+        <a class="navbar-brand" href="/">
+          <div>
+            <div class="d-inline"><img class="logo_width" src="/images/logo/logo.png" alt="logo"></div>
+            <div class="d-inline font-weight-bold font-italic text-uppercase text-warning">reality walk of usa</div>
+          </div>
+        </a>
+        <button class="navbar-toggler rounded-0" type="button" data-toggle="collapse" data-target="#navigation"
+          aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navigation">
+          <ul class="navbar-nav nav ml-auto text-center">
+            <li class="nav-item @@home <%= title == 'Home' ? 'active' : ''%>">
+              <a class="nav-link" href="/">Home</a>
+            </li>
+            <li class="nav-item @@courses <%= title == 'Courses' ? 'active' : ''%>">
+              <a class="nav-link" href="/courses">COURSES</a>
+            </li>
+            <li class="nav-item @@admission <%= title == 'Admission' ? 'active' : ''%>">
+              <a class="nav-link" href="/admission">ADMISSION</a>
+            </li>
+            <li class="nav-item @@virtual-tour <%= title == 'Virtual Tour' ? 'active' : ''%>">
+              <a class="nav-link" href="/virtual-tour">Virtual Tour</a>
+            </li>
+            <li class="nav-item dropdown view">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                Sections
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li class="<%= title == 'Events' ? 'active' : ''%>"><a class="dropdown-item" href="/events">Events</a>
+                </li>
+                <li class="<%= title == 'Teachers' ? 'active' : ''%>"><a class="dropdown-item"
+                    href="/teachers">Teacher</a></li>
+                <li class="<%= title == 'Scholarship' ? 'active' : ''%>"><a class="dropdown-item"
+                    href="/scholarship">Scholarship</a></li>
+                <li class="<%= title == 'Courses Details' ? 'active' : ''%>"><a class="dropdown-item"
+                    href="/courses">Course Details</a></li>
+              </ul>
+            </li>
+            <li class="nav-item @@about <%= title == 'About Us' ? 'active' : ''%>">
+              <a class="nav-link" href="/about">About</a>
+            </li>
+            <li class="nav-item @@contact <%= title == 'Contact Us' ? 'active' : ''%>">
+              <a class="nav-link" href="/contact-us">CONTACT Us</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </div>
+</header>
+<!-- /header -->
+
+<%- include('../auth-inc/registration.ejs') %>
+  <%- include('../auth-inc/login.ejs') %>
+    <%- include('../auth-inc/changepassword.ejs') %>
+      <%- include('../auth-inc/profile.ejs') %>
+        <%- include('../auth-inc/forwardpassword.ejs') %>

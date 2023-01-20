@@ -1,0 +1,93 @@
+<header class="main-header " id="header">
+    <nav class="navbar navbar-static-top navbar-expand-lg">
+        <!-- Sidebar toggle button -->
+        <button id="sidebar-toggler" class="sidebar-toggle">
+            <span class="sr-only">Toggle navigation</span>
+        </button>
+        <!-- search form -->
+        <div class="search-form d-none d-lg-inline-block">
+            <div class="input-group" style="width: 650px;">
+                <input type="search" name="query" id="searchquery" class="form-control" placeholder="Search..."
+                    autofocus autocomplete="off" />
+                <button type="submit" name="search" onclick="searchHandler()" id="search-btn" class="btn btn-flat">
+                    <i class="mdi mdi-magnify"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="navbar-right ">
+            <ul class="nav navbar-nav">
+                <li class="right-sidebar-in right-sidebar-2-menu">
+                    <i class="mdi mdi-settings mdi-spin"></i>
+                </li>
+                <!-- User Account -->
+                <li class="dropdown user-menu">
+                    <button href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                        <img src="/images/user/noimageicon.png" class="user-image" alt="User Image" />
+                        <span class="d-none d-lg-inline-block text-capitalize" id="user_name2"></span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <!-- User image -->
+                        <li class="dropdown-header">
+                            <img src="/images/user/noimageicon.png" class="img-circle" alt="User Image" />
+                            <div class="d-inline-block text-capitalize">
+                                <span id="user_name3"></span> <small class="pt-1"><span id="user_email1"></span></small>
+                            </div>
+                        </li>
+                        <li>
+                            <a href="/admin/admin-profile">
+                                <i class="mdi mdi-account"></i> My Profile
+                            </a>
+                        </li>
+                        <li class="dropdown-footer">
+                            <a id="logoutadmin" role="button"> <i class="mdi mdi-logout"></i> Logout </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<script>
+    function searchHandler() {
+        // $('#error_response_search').html('');
+        // let list = null;
+        const query = document.getElementById('searchquery').value;
+        $.ajax({
+            type: "GET",
+            url: "/admin/search-user/" + query,
+            success: function (msg) {
+                console.log(msg);
+                if (msg.users.length > 0) {
+                    msg.users.forEach((user , index)=> {
+                        let list =
+                            `<tr>
+                                <td>${index}</td>
+                                <td>${user.name}</td>
+                                <td>${user.email}</td>
+                                <td>${user.is_admin}</td>
+                                <td>${user.is_varified}</td>
+                                <td>
+                                    <a class="edit" href="/admin/editUser/${user._id}">
+                                        <img src="/edit.png" alt="edit icon">
+                                    </a>
+                                </td>
+                                <td>
+                                    <a class="delete" onclick="deleteuser('${user._id}')">
+                                        <img src="/trashcan.svg" alt="delete icon">
+                                    </a>
+                                </td>
+                            </tr>`;
+                        document.getElementById("usersContents").innerHTML = list;
+                    })
+                } else {
+                    let list =
+                        '<p>user data is not avaliable</p>';
+                        document.getElementById("usersContents").innerHTML = list;
+                };
+            }
+        })
+        return true
+    }
+</script>

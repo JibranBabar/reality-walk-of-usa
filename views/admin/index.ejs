@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<!-- include head -->
+<%- include('../partials/admin-inc/head.ejs') %>
+
+  <body class="header-fixed sidebar-fixed sidebar-dark header-light" id="body">
+    <!-- <script>
+      NProgress.configure({ showSpinner: false });
+      NProgress.start();
+    </script>
+    <div id="toaster"></div> -->
+    <!-- WRAPPER -->
+    <div class="wrapper">
+
+      <!-- LEFT SIDEBAR WITH OUT FOOTER -->
+      <%- include('../partials/admin-inc/asidebar.ejs') %>
+
+        <!-- PAGE WRAPPER -->
+        <div class="page-wrapper">
+
+          <!-- Header -->
+          <%- include('../partials/admin-inc/header.ejs') %>
+
+            <!-- CONTENT WRAPPER -->
+            <div class="content-wrapper">
+              <div class="content">
+                <!-- Top Statistics -->
+                <div class="row">
+                  <div class="col-xl-3 col-sm-6">
+                    <div class="card card-mini mb-4">
+                      <div class="card-body">
+                        <h2 class="mb-1">503</h2>
+                        <p>New Register</p>
+                        <div class="chartjs-wrapper">
+                          <canvas id="barChart"></canvas>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xl-3 col-sm-6">
+                    <div class="card card-mini  mb-4">
+                      <div class="card-body">
+                        <h2 class="mb-1">25</h2>
+                        <p>New Visitors Today</p>
+                        <div class="chartjs-wrapper">
+                          <canvas id="dual-line"></canvas>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xl-3 col-sm-6">
+                    <div class="card card-mini mb-4">
+                      <div class="card-body">
+                        <h2 class="mb-1">233</h2>
+                        <p>Monthly Register</p>
+                        <div class="chartjs-wrapper">
+                          <canvas id="area-chart"></canvas>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xl-3 col-sm-6">
+                    <div class="card card-mini mb-4">
+                      <div class="card-body">
+                        <h2 class="mb-1">913</h2>
+                        <p>Total Revenue VT</p>
+                        <div class="chartjs-wrapper">
+                          <canvas id="line"></canvas>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-12">
+                    <div class="card card-default">
+                      <div class="card-header card-header-border-bottom d-flex justify-content-between">
+                        <h2>Total Register Users</h2>
+                        <a href="javascript:void(0)" class="btn btn-outline-primary btn-sm text-uppercase">
+                          <i class=" mdi mdi-link mr-1"></i> Docs
+                        </a>
+                      </div>
+                      <div class="card-body">
+                        <div class="responsive-data-table">
+                          <table id="responsive-data-table" class="table dt-responsive nowrap" style="width:100%">
+                            <thead>
+                              <tr>
+                                <th>ID</th>
+                                <th>Full name</th>
+                                <th>E-mail</th>
+                                <th>Role</th>
+                                <th>Varified</th>
+                                <th>Edit</th>
+                                <th>Remove</th>
+                              </tr>
+                            </thead>
+
+                            <tbody id="usersContents">
+                              <% if (users.length> 0) { %>
+                                <% users.forEach((user , index)=> { %>
+                                  <tr>
+                                    <td>
+                                      <%= index %>
+                                    </td>
+                                    <td>
+                                      <%= user.name %>
+                                    </td>
+                                    <td>
+                                      <%= user.email %>
+                                    </td>
+                                    <td>
+                                      <%= user.is_admin %>
+                                    </td>
+                                    <td>
+                                      <%= user.is_varified %>
+                                    </td>
+                                    <td>
+                                      <a class="edit" href="/admin/editUser/<%=user._id%>">
+                                        <img src="/edit.png" alt="edit icon">
+                                      </a>
+                                    </td>
+                                    <td>
+                                      <a class="delete" onclick="deleteuser('<%= user._id %>')">
+                                        <img src="/trashcan.svg" alt="delete icon">
+                                      </a>
+                                    </td>
+                                  </tr>
+                                  <% }) %>
+                                    <% } else { %>
+                                      <p>user data is not avaliable</p>
+                                      <% } %>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div> <!-- End Content -->
+            </div> <!-- End Content Wrapper -->
+            <!-- include Footer  -->
+            <%- include('../partials/admin-inc/footer.ejs') %>
+
+        </div> <!-- End Page Wrapper -->
+
+    </div> <!-- End Wrapper -->
+
+    <script>
+      const deleteuser = id => {
+        const endpoint = `/admin/deleteUser/${id}`;
+        fetch(endpoint, {
+          method: 'DELETE'
+        })
+          .then((response) => response.json())
+          .then(window.localStorage.setItem('deleteuser', 1))
+          .then((data) => window.location.href = data.redirect)
+          .catch(err => console.log(err));
+      }
+    </script>
+  </body>
+
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- include head -->
+<%- include('../partials/admin-inc/head.ejs') %>
+
+    <body class="header-fixed sidebar-fixed sidebar-dark header-light" id="body">
+        <!-- WRAPPER -->
+        <div class="wrapper">
+
+            <!-- LEFT SIDEBAR WITH OUT FOOTER -->
+            <%- include('../partials/admin-inc/asidebar.ejs') %>
+
+                <!-- PAGE WRAPPER -->
+                <div class="page-wrapper">
+
+                    <!-- Header -->
+                    <%- include('../partials/admin-inc/header.ejs') %>
+
+                        <!-- CONTENT WRAPPER -->
+                        <div class="content-wrapper">
+                            <div class="content">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="card card-default">
+                                            <div
+                                                class="card-header card-header-border-bottom d-flex justify-content-between">
+                                                <h2>Total Request For Admissions</h2>
+                                                <a href="javascript:void(0)"
+                                                    class="btn btn-outline-primary btn-sm text-uppercase">
+                                                    <i class=" mdi mdi-link mr-1"></i> Docs
+                                                </a>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="responsive-data-table">
+                                                    <table id="responsive-data-table" class="table dt-responsive nowrap"
+                                                        style="width:100%">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>ID</th>
+                                                                <th>First name</th>
+                                                                <th>Last name</th>
+                                                                <th>E-mail</th>
+                                                                <th>Cnic No</th>
+                                                                <th>Father Name</th>
+                                                                <th>Phone No</th>
+                                                                <th>Approved</th>
+                                                                <th>Declined</th>
+                                                            </tr>
+                                                        </thead>
+
+                                                        <% if (admissions.length> 0) { %>
+                                                            <% admissions.forEach((admission , index)=> { %>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <%= index %>
+                                                                        </td>
+                                                                        <td>
+                                                                            <%= admission.firstname %>
+                                                                        </td>
+                                                                        <td>
+                                                                            <%= admission.lastname %>
+                                                                        </td>
+                                                                        <td>
+                                                                            <%= admission.email %>
+                                                                        </td>
+                                                                        <td>
+                                                                            <%= admission.cnic %>
+                                                                        </td>
+                                                                        <td>
+                                                                            <%= admission.fathername %>
+                                                                        </td>
+                                                                        <td>
+                                                                            <%= admission.phone %>
+                                                                        </td>
+                                                                        <td>
+                                                                            <a class="edit"
+                                                                                onclick="approveduser('<%= admission._id %>')">
+                                                                                <img src="/approved.png" height="24"
+                                                                                    width="24" alt="approved icon">
+                                                                            </a>
+                                                                        </td>
+                                                                        <td>
+                                                                            <a class="delete"
+                                                                                onclick="declineduser('<%= admission._id %>')">
+                                                                                <img src="/declined.png"
+                                                                                    alt="declined icon">
+                                                                            </a>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                                <% }) %>
+                                                                    <% } else { %>
+                                                                        <p>Admissions request is not avaliable</p>
+                                                                        <% } %>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> <!-- End Content -->
+                        </div> <!-- End Content Wrapper -->
+                        <!-- include Footer  -->
+                        <%- include('../partials/admin-inc/footer.ejs') %>
+                </div> <!-- End Page Wrapper -->
+        </div> <!-- End Wrapper -->
+
+        <script>
+            const approveduser = id => {
+                const endpoint = `/admin/approvedUser/${id}`;
+                fetch(endpoint, {
+                    method: 'POST'
+                })
+                    .then((response) => response.json())
+                    .then((data) => window.location.href = data.redirect)
+                    .catch(err => console.log(err));
+            }
+        </script>
+
+        <script>
+            const declineduser = id => {
+                const endpoint = `/admin/declinedUser/${id}`;
+                fetch(endpoint, {
+                    method: 'POST'
+                })
+                    .then((response) => response.json())
+                    .then((data) => window.location.href = data.redirect)
+                    .catch(err => console.log(err));
+            }
+        </script>
+    </body>
+
+</html>

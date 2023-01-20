@@ -1,0 +1,37 @@
+<!-- Change Password Modal -->
+<div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content rounded-0 border-0 p-4">
+            <div class="modal-header border-0">
+                <h3>Profile</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="details content">
+                    <div class="col-12 d-flex p-4">
+                        <div><img src="/images/user/noimageicon.png" alt="no image" class="me-n2" width="50"></div>
+                        <div>
+                            <div class="col-12">Name: <span id="user_name1"></span></div>
+                            <div class="col-12 pt-3"> <label for="Email1">Email : <span id="user_email"></span></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 d-flex">
+                        <div class="col-6" style="padding-left:8px">
+                            <a class="btn btn-danger" id="logout" role="button">LOGOUT</a>
+                        </div>
+                        <div class="col-6">
+                            <a class="text-color btn btn-primary"
+                                style="width: 100%; padding: 15px 5px; text-align: center;" href="#" data-toggle="modal"
+                                role="button" onclick="$('#profileModal').modal('hide')"
+                                data-target="#changePasswordModal">Change Password</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Login Modal -->
